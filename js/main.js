@@ -22,7 +22,8 @@ class TicTacToe {
     // You may set the "token" to anything that corresponds to a Icon
     // icon name ('heart', 'star', 'remove-sign', 'unchecked', 'bell',
     // 'certificate', etc.)
-
+    this.player1 = new Player('times');
+    this.player2 = new Player('circle');
 
     // TODO: Initialize several  properties that will be used to track game
     // progress.
@@ -132,14 +133,13 @@ class TicTacToe {
     let tile_y = event.target.dataset.y;
     // TODO: Claim this spot in the `this.gameState` array for the player.
     if (!this.gameState[tile_x][tile_y]) {
-      this.gameState[tile_x, tile_y] = this.currentPlayer.token;
-       // TODO: Set the class on the `event.target` to show the player's token. The class
+      this.gameState[tile_x][tile_y] = this.currentPlayer.token;
+      // TODO: Set the class on the `event.target` to show the player's token. The class
       // should be: `tile played fas fa-${this.currentPlayer.token}`.
       event.target.setAttribute('class', `tile played fas fa-${this.currentPlayer.token}`);
     } else {
       return false;
     }
-   
   }
   switchPlayer(){
     // This method handles switching between players after each move.
@@ -173,7 +173,7 @@ class TicTacToe {
 
     // TODO: Use a loop to add a "click" event listener to each tile that
     // will call the `handleMove` function whenever a tile is clicked.
-    for (const tile of titleElements) {
+    for (const tile of tileElements) {
       tile.addEventListener('click', handleMove);
     }
   }
@@ -209,42 +209,43 @@ class TicTacToe {
       let newRow = document.createElement('div');
       // TODO: Set the `class` attribute on `newRow` to "row".
       newRow.setAttribute('class','row');
-        // TODO: Create another `for` loop to make the colums to contain the
-        // tiles. This `for` loop should also loop 3 times. The counter
-        // variable in this loop should be called `j`.
-        for (j = 0; j < 3; j++) {
-        
-          // TODO: Create a new `div` element called `newCol`.
-          let newCol = document.createElement('div');
+      // TODO: Create another `for` loop to make the colums to contain the
+      // tiles. This `for` loop should also loop 3 times. The counter
+      // variable in this loop should be called `j`.
+      for (let j = 0; j < 3; j++) {
+        // TODO: Create a new `div` element called `newCol`.
+        let newCol = document.createElement('div');
         // TODO: Set the `class` attribute on `newCol` to "col-xs-3".
-          newCol.setAttribute('class','col-xs-3');
+        newCol.setAttribute('class','col-xs-3');
         // TODO: Create a new `span` element called `newTile`.
-          let newTile = document.createElement('span');
+        let newTile = document.createElement('span');
         // TODO: Set the `class` attribute on `newTile` to equal the
         // placeholder styles ("tile fas fa-question-sign").
-          newTile.setAttribute('class', 'fas fa-question tile');
+        newTile.setAttribute('class', 'fas fa-question tile');
         // TODO: Set the `data-x` attribute on the `newTile` element
         // equal to `i`.
-          newTile.setAttribute('data-x', i);
+        newTile.setAttribute('data-x', i);
         // TODO: Set the `data-y` attribute on the `newTile` element
         // equal to `j`.
-          newTile.setAttribute('data-y', j);
+        newTile.setAttribute('data-y', j);
 
         // TODO: Append `newTile` as a child to `newCol`.
-          newCol.appendChild(newtile);
+        newCol.appendChild(newTile);
         // TODO: Append `newCol` as a child to `newRow`.
-          newRow.appendChild(newCol);
-    // NOTE: Your second `for` loop should end here.
-        }
-    // TODO: Append the `newRow` element to `this.gameboard` as a child element.
-        this.gameboard.appendChild(newRow);
+        newRow.appendChild(newCol);
+        // NOTE: Your second `for` loop should end here.
+      }
+      // TODO: Append the `newRow` element to `this.gameboard` as a child element.
+      this.gameboard.appendChild(newRow);
     // NOTE: Your first `for` loop should end here.
-
+    }
     // TODO: Call `this.setUpTileListeners()` to add event listeners to the
     // `.tile` elements.
-      this.setUpTileListeners();
+    this.setUpTileListeners();
   }
-  initializeMovePrompt(){
+
+
+  initializeMovePrompt() {
     // This method initializes the `this.movePrompt` element.
 
     // TODO: Hide the `this.startPrompt` element by setting the `class`
@@ -257,7 +258,7 @@ class TicTacToe {
     // TODO: Set `this.currentPlayerToken` class equal to `fas fa-${this.currentPlayer.token}`
     this.currentPlayerToken.setAttribute('class', `fas fa-${this.currentPlayer.token}`);
   }
-  start(){
+  start() {
     console.log('start game');
     // This method handles the logic to create a new game. It primarily has
     // two duties in the basic version of the game:
@@ -269,7 +270,8 @@ class TicTacToe {
     this.initializeMovePrompt();
     console.log('init move prompt');
   }
-} // End of the Tic Tac Toe Class definition.
+}
+// End of the Tic Tac Toe Class definition.
 
 // Outside of the Class definitions, we need a few items to control the game
 // so our players can successfull play.
@@ -277,7 +279,7 @@ class TicTacToe {
 // TODO: Add an event listener to the `document` object that will watch for the
 // "DOMContentLoaded" event signal. This listener should execute an anonymous
 // function to handle the "DOMContentLoaded" event.
-document.addEventListener('DomContentLoaded', function(event) => {
+document.addEventListener('DOMContentLoaded', (event) => {
 
 // TODO: Inside the "DOMContentLoaded" event handler, perform the following
 // steps:
@@ -306,8 +308,8 @@ document.addEventListener('DomContentLoaded', function(event) => {
 document.addEventListener("win",(event) => {
 // TODO: In the handler for the "win" event, call the `game.showWinScreen()`
 // method to display the winning screen.
-console.log('win event fired');
-game.showWinScreen();
+  console.log('win event fired');
+  game.showWinScreen();
 });
 // NOTE: End of the "win" event listener.
 
@@ -316,7 +318,7 @@ game.showWinScreen();
 document.addEventListener('draw', (event) => { 
 // TODO: In the handler for the "draw" event, call the `game.showDrawScreen()`
 // method to display the tie game screen.
-game.showDrawScreen();
+  game.showDrawScreen();
 })
 // NOTE: End of the "draw" event listener.
 
